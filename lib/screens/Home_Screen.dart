@@ -18,10 +18,10 @@ class _HomeState extends State<Home> {
     mapValue.forEach((key, item) {
       itemList.add(new Answer.fromJson(item));
     });
-    // itemList.forEach((item) {
+    //itemList.forEach((item) {
     // print(item.answer);
-    // print(item.userId);
-    //});
+    //print(item.userId);
+    // });
     return itemList;
   }
 
@@ -46,7 +46,6 @@ class _HomeState extends State<Home> {
           allAnswers,
           'UserId.Q_UB_CB_EV4_BARZ84_PIV_UB_CZ5_GH_R_ZP2',
         );
-
         loading = true;
       });
     });
@@ -60,6 +59,7 @@ class _HomeState extends State<Home> {
           new Answer(
             answer: allAnswers[i].answer,
             userId: allAnswers[i].userId,
+            questionId: allAnswers[i].questionId,
           ),
         );
       }
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
             ),
             items: myUsers.map((e) {
               return DropdownMenuItem(
-                child: Text('Alumno ${myUsers.indexOf(e)+1}'),
+                child: Text('Alumno ${myUsers.indexOf(e) + 1}'),
                 value: e,
               );
             }).toList(),
@@ -101,6 +101,7 @@ class _HomeState extends State<Home> {
                   return AnswerCard(
                     answer: myAnswers[index].answer.toString(),
                     uid: myAnswers[index].userId.toString(),
+                    questionId: myAnswers[index].questionId.toString(),
                   );
                 },
               ),

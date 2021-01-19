@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AnswerCard extends StatelessWidget {
   final String answer;
   final String uid;
-  AnswerCard({@required this.answer, @required this.uid});
+  final String questionId;
+  AnswerCard({@required this.answer, @required this.uid, @required this.questionId});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +16,7 @@ class AnswerCard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'Answer: $answer',
+                'For question Number $questionId : The answer is: $answer ',
                 style: TextStyle(fontSize: 20, color: Colors.white),
                 textAlign: TextAlign.start,
               ),
