@@ -1,6 +1,7 @@
 // ignore: unused_import
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pruebaVanglar/models/automodel.dart';
 // ignore: unused_import
 import 'package:pruebaVanglar/widgets/Answer_Card.dart';
 
@@ -13,14 +14,35 @@ class _HomeState extends State<Home> {
   Future fetchJsonData() async {
     var rawJson =
         await DefaultAssetBundle.of(context).loadString('Data/bd.json');
-    return rawJson;
+
+    Map mapValue = json.decode(rawJson)["answers"];
+
+    List<Answer> itemList = List();
+    mapValue.forEach((key, item) {
+      itemList.add(new Answer.fromJson(item));
+    });
+
+    /*itemList.forEach((item) {
+      print(item.answer);
+      print(item.userId);
+    });*/
+    return itemList;
   }
+
+  List<Answer> myAnswers = List();
 
   @override
   void initState() {
+    getAnswers();
     super.initState();
-    var data = fetchJsonData();
-    print(data);
+  }
+
+  getAnswers() {
+    fetchJsonData().then((response) {
+      setState(() {
+        myAnswers = response;
+      });
+    });
   }
 
   @override
@@ -31,37 +53,14 @@ class _HomeState extends State<Home> {
       ),
       body: Center(
         child: ListView.builder(
-          itemBuilder: (context, index) {},
+          itemCount: myAnswers.length,
+          itemBuilder: (context, index) {
+            return AnswerCard(
+              answer: myAnswers[index].answer.toString(),
+            );
+          },
         ),
       ),
     );
   }
 }
-
-/*
- * FutureBuilder(
-        builder: (context, snapshot) {
-          var myData = jsonDecode(snapshot.data.toString());
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              print(myData);
-              return Text(myData[index].answers);
-            },
-          );
-        },
-        future: DefaultAssetBundle.of(context).loadString('Data/bd.json'),
-      )
- * 
- */
-
-/*Future loadData() async {
-    String jsonString = await fetchJsonData();
-    final jsonResponse = jsonDecode(jsonString);
-    Users answer = new Users.fromJson(jsonResponse);
-    print(answer);
-  } */
-/*
-  Future<List<Answer>> fetchAnswers(var rawJson) async {
-    final parsed = jsonDecode(rawJson).cast<Map<String, dynamic>>();
-    return parsed.map<Answer>((json) => Answer.fromJson(json)).toList();
-  }*/
