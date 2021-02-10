@@ -1,6 +1,8 @@
 # pruebaVanglar
 
-A new Flutter project.
+Flutter Proyect. 
+Techincal Exam to work for Vanglar
+Pulling and filtering data from a Json data base.
 
 ## Getting Started
 
