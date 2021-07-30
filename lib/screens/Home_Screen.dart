@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
     var rawJson =
         await DefaultAssetBundle.of(context).loadString('Data/bd.json');
     Map mapValue = json.decode(rawJson)["answers"];
-    List<Answer> itemList = List();
+    List<Answer> itemList = [];
     mapValue.forEach((key, item) {
       itemList.add(new Answer.fromJson(item));
     });
@@ -25,8 +25,8 @@ class _HomeState extends State<Home> {
     return itemList;
   }
 
-  List<Answer> allAnswers = List();
-  List<Answer> myAnswers = List();
+  List<Answer> allAnswers = [];
+  List<Answer> myAnswers =[];
   List<String> myUsers = UsersList.users;
 
   bool loading = false;
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
   }
 
   customAnswer(List<Answer> allAnswers, String uid) {
-    List<Answer> customList = List();
+    List<Answer> customList = [];
     for (var i = 0; i < allAnswers.length; i++) {
       if (allAnswers[i].userId.toString() == uid) {
         customList.add(
